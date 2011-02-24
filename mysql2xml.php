@@ -9,10 +9,6 @@ function toxml($host, $user, $password, $db, $query, $mode, $output) {
      exit;
   } 
 
-  /*if ($mode == 1) {
-    mysql_query('UPDATE MySQLDB SET new="2" WHERE new="1" AND postinfo<(NOW()-12*60*60)');
-  }*/
-
   mysql_query("SET NAMES 'utf8' COLLATE 'utf8_unicode_ci'",$dbconnect);
   $dbresult = mysql_query($query, $dbconnect);
   $doc = new DomDocument('1.0');
@@ -41,14 +37,12 @@ function toxml($host, $user, $password, $db, $query, $mode, $output) {
 
   $xml_string = $doc->saveXML();
 
-  //echo $xml_string;
-
   $Handle = fopen($output, 'w');
   fwrite($Handle, $xml_string);
   fclose($Handle);
   
   if ($mode == 1) {
-    mysql_query('UPDATE MySQLDB SET new="0" WHERE new="2"');
+    mysql_query('UPDATE MYSQLDB SET new="0" WHERE new="2"');
   }
 }
 

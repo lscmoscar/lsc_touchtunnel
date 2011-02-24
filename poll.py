@@ -7,8 +7,6 @@ import sys
 from twython import Twython
 from dateutil import zoneinfo 
 import pytz
-
-#from datetime import date, timedelta
 #*************
 
 twitter = Twython()
@@ -18,22 +16,12 @@ tweetmemories = []
 tweettimes = []
 tweetids = []
 
-#default set
-#hash_ = "%23"
-#hash_='#'
-
-#once received hashtag for tt
-#query = 'touchtunnelmems'
-query_str = 'HASH THAT PEOPLE TWEET IN ORDER TO GET POLLED/SEARCHED'
+query_str = 'YOUR QUERY STRING'
 
 
 yesterday = datetime.datetime.now() - datetime.timedelta(1)
-#today = datetime.datetime.now()
-#today = str(today)
-#today = today[:10]
 yesterday = str(yesterday)
 yesterday = yesterday[:10]
-#print yesterday
 
 
 utc = pytz.utc
@@ -41,21 +29,22 @@ est = pytz.timezone("EST")
 		
 def sql_run():
 	try:
-                conn = mdb.connect(host='LOCALHOST', db='MySQLDB', user='MySQL USER', passwd='MySQL USER PASSWORD')
+		conn = mdb.connect(host='LOCALHOST', db='MYSQLDB', user='MYSQL USER', passwd='MYSQL PASSWORD')
 		conn.set_character_set('utf8')
 		cursor = conn.cursor()
 		cursor.execute('SET NAMES utf8;')
 		cursor.execute('SET CHARACTER SET utf8;')
 		cursor.execute('SET character_set_connection=utf8;')
 		for i in reversed(range(len(tweetusers))):
-			fin_mem = os.popen("php tweetfilter.php '" + tweetmemories[i]  + "'").read() #file not included, but is just a badword filter php file/api call
+			fin_mem = os.popen("php PATH/tweetfilter.php '" + tweetmemories[i]  + "'").read() #tweetfilter.php is a swear filter, not include in this repo
 			fin_mem = fin_mem[1:]
-			badwordrep = 'ilovetouchtunnel' #BAD WORD REPLACEMENT STRING
+			#fin_mem = tweetmemories[i]
+			badwordrep = 'ilovetouchtunnel' #our bad word replacment string
 			if badwordrep not in fin_mem:
-				sql = ("""INSERT INTO MySQLDB(postinfo,formortweet,new,name,memory,tweetid) VALUES("%s","%s",%d,"%s","%s","%s")""" % (tweettimes[i],"tweet",1,tweetusers[i],fin_mem,tweetids[i]))
+				sql = ("""INSERT INTO MYSQLDB(postinfo,formortweet,new,name,memory,tweetid) VALUES("%s","%s",%d,"%s","%s","%s")""" % (tweettimes[i],"tweet",1,tweetusers[i],fin_mem,tweetids[i]))
 				cursor.execute(sql)
 			else:
-				sql = ("""INSERT INTO MySQLDB(postinfo,formortweet,new,name,memory,tweetid) VALUES("%s","%s",%d,"%s","%s","%s")""" % (tweettimes[i],"tweet",-1,tweetusers[i],fin_mem,tweetids[i]))
+				sql = ("""INSERT INTO MYSQLDB(postinfo,formortweet,new,name,memory,tweetid) VALUES("%s","%s",%d,"%s","%s","%s")""" % (tweettimes[i],"tweet",-1,tweetusers[i],fin_mem,tweetids[i]))
 				cursor.execute(sql)
 		conn.commit()
 		cursor.close()
@@ -66,27 +55,20 @@ def sql_run():
 
 def searchFeed(last_id):	
 	tweettimes_weird = []
-	s_memories = twitter.searchTwitter(q='SEARCH QUERY HERE', rpp='5',since=yesterday,since_id=last_id)
+	s_memories = twitter.searchTwitter(q='YOUR QUERY HERE', rpp='15',since=yesterday,since_id=last_id)
 	#print s_memories['results']
 	if 'error' in s_memories:
 		pass
-		
-	# for tweet in s_memories['results']:
-	# 	print tweet['text'] + ": " + tweet['from_user']
+
 	else:
 		for tweet in s_memories['results']:
-			#print tweet['text']
-			#print tweet
 			tweetright = ""
 			for word in tweet['text'].split():
 				word = word.lower()
-				if (word == query_str):
+				if (word == query_str) or (word=='CHECK FOR'):
 					continue
 				else:
 					tweetright += (word + ' ')
-			#memstring = tweetright + ': ' + tweet['from_user']
-			#memstring = memstring.lower()
-			# if (memstring not in memories):
 			tweetmemories.append(tweetright)	
 			tweetusers.append(tweet['from_user'])
 			tweettimes_weird.append(tweet['created_at'])
