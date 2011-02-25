@@ -42,7 +42,7 @@ function toxml($host, $user, $password, $db, $query, $mode, $output) {
   fclose($Handle);
   
   if ($mode == 1) {
-    mysql_query('UPDATE MYSQLDB SET new="0" WHERE new="2"');
+    mysql_query('UPDATE MYSQLTABLE SET new="0" WHERE new="2"');
   }
 }
 

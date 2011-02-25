@@ -41,10 +41,10 @@ def sql_run():
 			#fin_mem = tweetmemories[i]
 			badwordrep = 'ilovetouchtunnel' #our bad word replacment string
 			if badwordrep not in fin_mem:
-				sql = ("""INSERT INTO MYSQLDB(postinfo,formortweet,new,name,memory,tweetid) VALUES("%s","%s",%d,"%s","%s","%s")""" % (tweettimes[i],"tweet",1,tweetusers[i],fin_mem,tweetids[i]))
+				sql = ("""INSERT INTO MYSQLTABLE(postinfo,formortweet,new,name,memory,tweetid) VALUES("%s","%s",%d,"%s","%s","%s")""" % (tweettimes[i],"tweet",1,tweetusers[i],fin_mem,tweetids[i]))
 				cursor.execute(sql)
 			else:
-				sql = ("""INSERT INTO MYSQLDB(postinfo,formortweet,new,name,memory,tweetid) VALUES("%s","%s",%d,"%s","%s","%s")""" % (tweettimes[i],"tweet",-1,tweetusers[i],fin_mem,tweetids[i]))
+				sql = ("""INSERT INTO MYSQLTABLE(postinfo,formortweet,new,name,memory,tweetid) VALUES("%s","%s",%d,"%s","%s","%s")""" % (tweettimes[i],"tweet",-1,tweetusers[i],fin_mem,tweetids[i]))
 				cursor.execute(sql)
 		conn.commit()
 		cursor.close()
