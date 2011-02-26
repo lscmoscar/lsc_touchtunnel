@@ -129,9 +129,16 @@ for entry_tag in entries:
                                     
 	else:
 		printit = tt_hash + ' by ' + name + ':' + memory + '(' + yearofvisit + ')' + ',' + url
-		memory,next_mem = memcheck(printit,memory)
-                name = name.rstrip()
-                memory = memory.rstrip()
+		gomemory = ""
+		for word in memory.split():
+			checkword = word.lower()
+			if (checkword == '#touchtunnelmems') or (checkword=="#ttmemory"):
+				continue
+			else:
+				gomemory += (word + ' ')
+		memory,next_mem = memcheck(printit,gomemory)
+		name = name.rstrip()
+		memory = memory.rstrip()
 		final_tweet = tt_hash + ' by ' + name + ':' + memory + '(' + yearofvisit + ')' + ',' + url
 #*****Update Status Code******
 	api.update_status(status=final_tweet,lat=40.707980,long=-74.055719)

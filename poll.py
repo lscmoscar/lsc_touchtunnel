@@ -64,11 +64,12 @@ def searchFeed(last_id):
 		for tweet in s_memories['results']:
 			tweetright = ""
 			for word in tweet['text'].split():
-				word = word.lower()
-				if (word == query_str) or (word=='CHECK FOR'):
+				checkword = word.lower()
+				if (checkword == query_str) or (checkword=='#ttmemory'):
 					continue
 				else:
-					tweetright += (word + ' ')
+				    tweetright += (word + ' ')
+				
 			tweetmemories.append(tweetright)	
 			tweetusers.append(tweet['from_user'])
 			tweettimes_weird.append(tweet['created_at'])
