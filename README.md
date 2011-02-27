@@ -8,7 +8,6 @@ This repository includes four python scripts:
 `twitter.searchTwitter(q='YOUR QUERY HERE', rpp='15',since=yesterday,since_id=last_id)`
 
 - update_twitter.py uses the tweepy module and oauth credentials to update the status of our designated Twitter profile
-
 `api.update_status(status=final_tweet,lat=40.707980,long=-74.055719)
     if (next_mem is not None):
         api.update_status(status=next_mem,lat=40.707980,long=-74.055719) 
