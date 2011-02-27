@@ -13,4 +13,4 @@ This repository includes four python scripts:
         		api.update_status(status=next_mem,lat=40.707980,long=-74.055719) 
     		time.sleep(30)
 
-The php file, mysql2xml.php, is used to convert **new** tweets from the database into xml format. mysql2xml_delay.php_ calls the *toxml* function (located in mysql2xml.php) and then executes update_twitter.py, which reads from the created xml, creates the tweet string (with unique link using google's url shortener), and updates the status.
+The php file, mysql2xml.php, is used to convert **new** tweets from the database into xml format. mysql2xml_delay.php calls the *toxml* function (located in mysql2xml.php) and then executes update_twitter.py, which reads from the created xml, creates the tweet string (with unique link using google's url shortener), and updates the status.
