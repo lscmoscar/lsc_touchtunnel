@@ -36,7 +36,7 @@ def sql_run():
 		cursor.execute('SET CHARACTER SET utf8;')
 		cursor.execute('SET character_set_connection=utf8;')
 		for i in reversed(range(len(tweetusers))):
-			fin_mem = os.popen("php PATH/tweetfilter.php '" + tweetmemories[i]  + "'").read() #tweetfilter.php is a swear filter, not include in this repo
+                        fin_mem = os.popen('php PATH/tweetfilter.php "' + tweetmemories[i]  + '"').read() #tweetfilter.php is a swear filter, not included in this repo
 			fin_mem = fin_mem[1:]
 			#fin_mem = tweetmemories[i]
 			badwordrep = 'ilovetouchtunnel' #our bad word replacment string
