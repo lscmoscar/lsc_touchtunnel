@@ -144,5 +144,5 @@ for entry_tag in entries:
 	api.update_status(status=final_tweet,lat=40.707980,long=-74.055719)
         if (next_mem is not None):
             api.update_status(status=next_mem,lat=40.707980,long=-74.055719) 
-        time.sleep(30)
+        time.sleep(60)
 #*****************************
