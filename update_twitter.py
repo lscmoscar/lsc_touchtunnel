@@ -14,7 +14,7 @@ from StringIO import StringIO
 tweet_max = 140
 #************
 
-tt_hash = 'YOUR HASH RETURN'
+tt_hash = 'YOUR HASH RETURN' #(possibly best not to use the '#' character for everything, as Twitter may qualify that as an abused hashtag)
 site = 'http://touchtunnel.org' #our touchtunnel weblink
 tt_account = 'TWITTER ACCOUNT NAME' #witter account name
 bad_replace = 'ilovetouchtunnel' #our bad word replacment string
